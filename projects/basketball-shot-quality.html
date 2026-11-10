@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Makes a Quality Shot?: Collegiate basketball shot-quality model | Tamera Taylor-Moore</title>
+  <meta name="description" content="Case study: a logistic-regression shot-quality model on 1,004 collegiate basketball shot attempts, converting shot context into expected points per shot.">
+  <meta name="author" content="Tamera Taylor-Moore">
+  <link rel="canonical" href="https://searjam17.github.io/projects/basketball-shot-quality.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="What Makes a Quality Shot?: Collegiate basketball shot-quality model | Tamera Taylor-Moore">
+  <meta property="og:description" content="Case study: a logistic-regression shot-quality model on 1,004 collegiate basketball shot attempts, converting shot context into expected points per shot.">
+  <meta property="og:url" content="https://searjam17.github.io/projects/basketball-shot-quality.html">
+  <meta property="og:image" content="https://searjam17.github.io/assets/images/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/images/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <nav class="container nav" aria-label="Main">
+    <a class="wordmark" href="../index.html"><span class="wordmark-mark" aria-hidden="true">TTM</span>Tamera Taylor-Moore</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu">
+      <span class="nav-toggle-icon" aria-hidden="true"></span><span>Menu</span>
+    </button>
+    <ul class="nav-list" id="primary-menu">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+      <li><a class="nav-cta" href="../assets/documents/Tamera-Taylor-Moore-Resume.pdf">Resume <span class="visually-hidden">(PDF)</span></a></li>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="container">
+  <p class="breadcrumb"><a href="../index.html#projects"><svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>All projects</a></p>
+  <header class="case-hero">
+    <span class="category category--sports">Sports analytics</span>
+    <h1>What Makes a Quality Shot?</h1>
+    <p class="case-summary">Using 1,004 recorded shot attempts from a collegiate basketball team, I built a logistic-regression model that turns shot context into expected points per shot. The clearest finding: how closely a shot is defended matters far more than its zone or the shot clock.</p>
+    <dl class="overview"><div><dt>Context</dt><dd>Professor-led student sports analytics team, American University</dd></div><div><dt>Team</dt><dd>I led this analysis and reported the findings</dd></div><div><dt>My role</dt><dd>Data cleaning, modeling, validation and written report</dd></div><div><dt>Tools</dt><dd>R (tidyverse, ggplot2, readxl), Quarto</dd></div><div><dt>Timeframe</dt><dd>September 2026–present</dd></div><div><dt>Data</dt><dd>One team's game shot log, 1,004 attempts</dd></div></dl>
+  </header>
+  <div class="case-layout">
+    <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#problem">The problem</a></li><li><a href="#data">Data</a></li><li><a href="#approach">Approach</a></li><li><a href="#findings">Findings</a></li><li><a href="#recommendations">Recommendations</a></li><li><a href="#reflection">Limitations</a></li><li><a href="#materials">Materials</a></li></ol></nav>
+    <article class="case-content">
+      <section id="problem"><h2>The problem</h2>
+      <p>A professor who leads a team of student analysts asked me to lead this analysis and report the findings. The brief: define what a <strong>quality shot</strong> is, regardless of who takes it, using shot type, location, zone, contest level and shot clock. A coaching staff can use the answer to judge possessions by the look they create, not just by whether the ball went in.</p>
+      <p>I defined quality as <strong>expected points per shot (PPS)</strong>: the chance a shot goes in, multiplied by what it's worth. The "weights" come from a model, not from guesswork.</p>
+      </section>
+
+      <section id="data"><h2>Data and checks</h2>
+      <ul>
+      <li><strong>Dataset:</strong> 1,004 shot attempts and 10 columns, with no missing values. Recorded points matched make × shot value on every shot.</li>
+      <li><strong>A hidden data error:</strong> Excel had converted two shot-clock labels into dates ("10-6" became October 6 and "5-0" became May 2000). I mapped them back once at load time and checked the mapping with date arithmetic.</li>
+      <li><strong>Baselines:</strong> 1.021 points per shot across all included players' attempts, and <strong>1.08</strong> for the like-for-like population the model covers (after removing excluded players, blocked shots and mid-range twos). Model results are compared with 1.08.</li>
+      <li><strong>Model scope:</strong> non-blocked attempts from the paint and from three by the included players (about 900 shots). Blocked shots were excluded because a block describes the outcome, not the situation before the shot. Mid-range twos were excluded because only 10 attempts remained.</li>
+      <li><strong>Privacy:</strong> player names were left out for privacy. This page reports team-level results, and the full report shows players only as anonymous labels (Player 01, Player 02, ...).</li>
+      </ul>
+      </section>
+
+      <section id="approach"><h2>Approach</h2>
+      <ol>
+      <li><strong>Descriptive pass:</strong> PPS and effective field-goal percentage by zone, shot clock and contest level.</li>
+      <li><strong>Model:</strong> a logistic regression of make/miss on shot type, zone, contest level and shot-clock window. Rare shot types (under 20 attempts) were grouped. Detailed location was left out because each location sits inside exactly one zone, which made the two redundant.</li>
+      <li><strong>Whole-variable tests:</strong> likelihood-ratio tests dropping one characteristic at a time, since no single category row can show whether a whole variable matters.</li>
+      <li><strong>Validation:</strong> calibration by predicted-probability decile, then 10-fold cross-validation against a contest-only model and a null model.</li>
+      <li><strong>Expected PPS:</strong> predicted make probability × point value for every observed shot context, with 95% intervals and low-sample flags.</li>
+      </ol>
+      </section>
+
+      <section id="findings"><h2>Findings</h2>
+      <figure class="bar-chart">
+      <figcaption>Points per shot by defensive pressure<span>Included players' attempts; observed results, not model estimates.</span></figcaption>
+      <div class="bar"><span class="bar-label">Wide open</span><span class="bar-track"><span class="bar-fill" style="width:90.0%">1.35</span></span></div>
+      <div class="bar"><span class="bar-label">Lightly contested</span><span class="bar-track"><span class="bar-fill" style="width:80.0%">1.20</span></span></div>
+      <div class="bar"><span class="bar-label">Highly contested</span><span class="bar-track"><span class="bar-fill bar-fill--low" style="width:42.0%">0.63</span></span></div>
+      </figure>
+
+      <h3>1. Defensive pressure is the clearest signal</h3>
+      <p>After adjusting for shot type, zone and shot clock, a highly contested shot has about <strong>one-third the odds</strong> of going in compared with a lightly contested one (odds ratio 0.33, 95% interval 0.22–0.48). Wide-open and lightly contested shots couldn't be reliably separated from each other.</p>
+
+      <div class="table-wrap"><table>
+      <caption>Does each characteristic matter as a whole? (likelihood-ratio tests)</caption>
+      <thead><tr><th scope="col">Characteristic</th><th scope="col" class="num">Drop in fit (LRT)</th><th scope="col" class="num">p-value</th><th scope="col">Result</th></tr></thead>
+      <tbody>
+      <tr><th scope="row">Contest level</th><td class="num">47.9</td><td class="num">&lt; 0.0001</td><td>Clearly matters</td></tr>
+      <tr><th scope="row">Shot type</th><td class="num">17.7</td><td class="num">0.014</td><td>Matters as a group</td></tr>
+      <tr><th scope="row">Shot zone</th><td class="num">4.0</td><td class="num">0.137</td><td>Adds little once shot type is known</td></tr>
+      <tr><th scope="row">Shot clock</th><td class="num">1.1</td><td class="num">0.78</td><td>Adds nothing measurable</td></tr>
+      </tbody></table></div>
+
+      <h3>2. The paint isn't worse than the three-point line. It's just more contested.</h3>
+      <p>Pooled together, threes returned slightly more than paint attempts. At the <strong>same level of pressure</strong>, paint shots return as much or more: 1.40 vs 1.37 expected PPS when wide open, and 0.66 vs 0.50 when highly contested. The paint looked weaker only because 39% of paint attempts were highly contested, compared with 16% of above-the-break threes.</p>
+
+      <h3>3. The shot clock isn't the problem in itself</h3>
+      <p>Raw scoring falls late in the possession, but that difference largely disappears once contest level and shot type are included. Late shots look worse mainly because they tend to be tougher looks.</p>
+
+      <h3>4. The model holds up on shots it hasn't seen</h3>
+      <ul class="stat-row">
+      <li><span class="stat-value">0.653</span><span class="stat-label">cross-validated AUC (contest-only model: 0.583)</span></li>
+      <li><span class="stat-value">0.227</span><span class="stat-label">Brier score vs 0.249 for guessing the average make rate</span></li>
+      <li><span class="stat-value">4.2 pts</span><span class="stat-label">average in-sample calibration gap; no decile outside chance range</span></li>
+      </ul>
+      <p>The gain is real but modest, which is normal for shot data: even good looks miss often.</p>
+      </section>
+
+      <section id="recommendations"><h2>Recommendations</h2>
+      <ul>
+      <li><strong>Judge the look, not the result.</strong> A wide-open or lightly contested shot in the paint or from three is a good possession even when it misses.</li>
+      <li><strong>Cut contested paint attempts.</strong> They were the most common low-value shot (191 attempts at about 0.66 expected PPS). An open or lightly contested three is worth roughly twice as much.</li>
+      <li><strong>Use ball movement to beat the contest, not the clock.</strong> Drive-and-kick, ball reversal and screening matter because they create cleaner looks before the possession breaks down.</li>
+      <li><strong>Treat the context rankings as hypotheses</strong> to test in film and practice. The intervals are wide.</li>
+      </ul>
+      <p class="callout callout--note"><span class="callout-title">Status</span>These are recommendations from the analysis, not changes that have been implemented.</p>
+      </section>
+
+      <section id="reflection"><h2>Limitations</h2>
+      <ul>
+      <li>Observational data: the results are adjusted associations, not causal effects.</li>
+      <li>"Regardless of shooter" doesn't remove shooter skill. Players take different shot mixes, so this is a pooled description of one team's sample.</li>
+      <li>Cross-validation used random folds, so it estimates performance on new shots from the same players, not on new players or a new season. The file has no game ID, which rules out a game-by-game test.</li>
+      <li>Next data I'd request: a game ID per shot, the original scorer records for the shot-clock labels, pre-shot contest level for blocked attempts, and more mid-range attempts.</li>
+      </ul>
+      </section>
+
+      <section id="materials"><h2>Supporting materials</h2>
+      <ul class="materials"><li><a href="../assets/documents/shot-quality-report.html"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg><span>Full analysis report (Quarto, opens in your browser)<small>Every table, chart and model check, with the R code folded under "Show the code". Player names were left out for privacy; players appear as anonymous labels.</small></span></a></li></ul><p>The shot data itself isn't published.</p>
+      </section>
+      <nav class="case-footer-nav" aria-label="More projects">
+        <a class="btn btn-ghost" href="../index.html#projects"><svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> All projects</a>
+        <a class="btn btn-ghost" href="saltwise-dc.html">Next: SaltWise DC →</a>
+      </nav>
+    </article>
+  </div>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year">2026</span> Tamera Taylor-Moore</p>
+    <ul class="footer-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../assets/documents/Tamera-Taylor-Moore-Resume.pdf">Resume (PDF)</a></li>
+      <li><a href="mailto:tamerataylormoore0@gmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/tamera-taylor-moore">LinkedIn</a></li>
+      <li><a href="https://github.com/SearJam17">GitHub</a></li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>

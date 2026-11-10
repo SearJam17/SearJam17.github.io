@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inside the Cage: UFC stats dashboard and stats-driven fighting game | Tamera Taylor-Moore</title>
+  <meta name="description" content="Case study: a UFC statistics dashboard turned into a stats-driven fighting game, calibrated and backtested against real fight results by Tamera Taylor-Moore.">
+  <meta name="author" content="Tamera Taylor-Moore">
+  <link rel="canonical" href="https://searjam17.github.io/projects/inside-the-cage.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Inside the Cage: UFC stats dashboard and stats-driven fighting game | Tamera Taylor-Moore">
+  <meta property="og:description" content="Case study: a UFC statistics dashboard turned into a stats-driven fighting game, calibrated and backtested against real fight results by Tamera Taylor-Moore.">
+  <meta property="og:url" content="https://searjam17.github.io/projects/inside-the-cage.html">
+  <meta property="og:image" content="https://searjam17.github.io/assets/images/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/images/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <nav class="container nav" aria-label="Main">
+    <a class="wordmark" href="../index.html"><span class="wordmark-mark" aria-hidden="true">TTM</span>Tamera Taylor-Moore</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu">
+      <span class="nav-toggle-icon" aria-hidden="true"></span><span>Menu</span>
+    </button>
+    <ul class="nav-list" id="primary-menu">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+      <li><a class="nav-cta" href="../assets/documents/Tamera-Taylor-Moore-Resume.pdf">Resume <span class="visually-hidden">(PDF)</span></a></li>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="container">
+  <p class="breadcrumb"><a href="../index.html#projects"><svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>All projects</a></p>
+  <header class="case-hero">
+    <span class="category category--sports">Sports analytics</span>
+    <h1>Inside the Cage</h1>
+    <p class="case-summary">I took my UFC statistics dashboard and started turning it into a 2D fighting game in which every fighter strikes, defends and wrestles the way their real record says they do. Then I checked the game against reality, and that check exposed an error in a third of the source data.</p>
+    <dl class="overview"><div><dt>Context</dt><dd>Personal portfolio project</dd></div><div><dt>Team</dt><dd>Individual, built with an AI coding assistant</dd></div><div><dt>My role</dt><dd>Game designer, rule writer, data investigator and tester</dd></div><div><dt>Tools</dt><dd>ChatGPT custom GPT (first dashboard), then Claude Code; Python, JavaScript, Node.js tests, Git</dd></div><div><dt>Timeframe</dt><dd>October 2026–present</dd></div><div><dt>Status</dt><dd>Game engine complete and tested; playable version in progress</dd></div></dl>
+  </header>
+  <div class="case-layout">
+    <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#problem">The problem</a></li><li><a href="#data">Data</a></li><li><a href="#approach">Approach</a></li><li><a href="#findings">Findings</a></li><li><a href="#implications">Implications</a></li><li><a href="#contribution">My contribution</a></li><li><a href="#reflection">Limitations</a></li><li><a href="#materials">Materials</a></li></ol></nav>
+    <article class="case-content">
+      <section id="problem"><h2>The problem</h2>
+      <p>A dashboard can show that one fighter throws more strikes or shoots for more takedowns than another. I wanted to know whether those same numbers could <strong>drive</strong> a believable fight: a high-volume striker should throw more, a strong wrestler should shoot more, a hard-to-hit fighter should defend more.</p>
+      <p>The test I set for myself: a simulation built only from fight records should end fights, score rounds and pick winners at rates close to the real UFC. Otherwise it's a game that just happens to use real names.</p>
+      </section>
+
+      <section id="data"><h2>Data and constraints</h2>
+      <ul>
+      <li><strong>Scope:</strong> 8,709 recorded UFC fights, 775 events and 2,696 fighters, with fight data through May 2026. 2,535 fighters have enough data for the search tool and the game.</li>
+      <li><strong>Verification source:</strong> per-round statistics by fighter name from a second public dataset (Greco1899/scrape_ufc_stats, GPL-3.0). I downloaded only its CSV files and ran none of its code.</li>
+      <li><strong>Constraint:</strong> UFC's website terms don't allow automated copying of event listings or photos, so I built on the historical data and my own analysis instead.</li>
+      <li><strong>Not public yet:</strong> real fighter names, the data licence and the art licence still need to be resolved before a public release, so the dashboard and game aren't linked here.</li>
+      </ul>
+      </section>
+
+      <section id="approach"><h2>Approach</h2>
+      <h3>From fight records to ratings</h3>
+      <p>Each fighter's record becomes a set of ratings (pace, accuracy, defence, takedown attempts and success, takedown defence, power, chin and submissions), where 1.0 is league average. Three rules keep the ratings honest:</p>
+      <ul>
+      <li>Fighters with only a few fights are pulled toward the average, so one lucky night can't make someone unbeatable.</li>
+      <li>Pace is measured only while fighters are standing, so a wrestler who spends time on the ground isn't mistaken for a slow striker.</li>
+      <li>Missing data is never treated as zero. A safeguard also trims single extreme fights so they can move a rating by at most 50%.</li>
+      </ul>
+      <h3>Judging rules written in plain English</h3>
+      <p>I wrote the judging rules myself: impact first (damage, knockdowns, takedowns, ground work), then aggression, then control, with three judges who lean neutral, striking and grappling. Each rule became code and a test.</p>
+      <h3>Calibrate, then backtest</h3>
+      <p>The computer played itself thousands of times so I could compare finish rates and scoring with real UFC numbers. For the backtest, I rebuilt every rating using only fights before 1 January 2025, then simulated each decisive 2025–2026 fight between fighters the game already knew, 40 times each.</p>
+      </section>
+
+      <section id="findings"><h2>Findings</h2>
+      <h3>A third of the fight stats were on the wrong fighter</h3>
+      <p>Islam Makhachev kept losing in the game, and his data said opponents had controlled him for 56 minutes. That didn't match fights I knew. A check on title fights (where the champion is always in the red corner) confirmed the cause: the source listed names winner-first but stat lines red-corner-first. Whenever the blue corner won, each fighter's stats were credited to the other one.</p>
+      <ul class="stat-row">
+      <li><span class="stat-value">3,060</span><span class="stat-label">of 8,709 fights (35%) had swapped stats</span></li>
+      <li><span class="stat-value">5,618</span><span class="stat-label">fights already correct</span></li>
+      <li><span class="stat-value">0</span><span class="stat-label">fights left unexplained after matching by name</span></li>
+      <li><span class="stat-value">73</span><span class="stat-label">automated tests passing (61 JavaScript, 12 Python)</span></li>
+      </ul>
+      <p>I fixed the cause in the data-cleaning script by matching every fight against the second dataset by fighter name, rather than editing anything by hand. New tests fail on the old data and pass on the fixed data.</p>
+
+      <h3>Backtest against real 2025–2026 results</h3>
+      <figure class="bar-chart">
+      <figcaption>How often the game's favourite won the real fight<span>479 decisive 2025–2026 fights; ratings built only from fights before 2025.</span></figcaption>
+      <div class="bar"><span class="bar-label">Before the data fix</span><span class="bar-track"><span class="bar-fill bar-fill--low" style="width:51.6%">51.6%</span></span></div>
+      <div class="bar"><span class="bar-label">After the data fix</span><span class="bar-track"><span class="bar-fill" style="width:58.9%">58.9%</span></span></div>
+      <div class="bar"><span class="bar-label">After fix, when confident*</span><span class="bar-track"><span class="bar-fill" style="width:66.1%">66.1%</span></span></div>
+      <div class="bar"><span class="bar-label">Rule of thumb: better record</span><span class="bar-track"><span class="bar-fill" style="width:60.3%;background:#4a5a75">60.3%</span></span></div>
+      <p class="bar-note">*174 fights where the favourite won at least 70% of simulations. The game now roughly matches the "better record so far" rule overall and beats it when it's confident.</p>
+      </figure>
+
+      <h3>Calibration against real rates</h3>
+      <div class="table-wrap"><table>
+      <caption>Average fighter vs average fighter, current version compared with real UFC data</caption>
+      <thead><tr><th scope="col">Measure</th><th scope="col" class="num">My game</th><th scope="col" class="num">Real UFC</th></tr></thead>
+      <tbody>
+      <tr><th scope="row">Fights that end early</th><td class="num">59%</td><td class="num">52%</td></tr>
+      <tr><th scope="row">Knockouts / submissions</th><td class="num">38% / 21%</td><td class="num">33% / 19%</td></tr>
+      <tr><th scope="row">10-8 rounds (share of judges' scores)</th><td class="num">5.9%</td><td class="num">about 2–7%</td></tr>
+      <tr><th scope="row">Split decisions (share of decisions)</th><td class="num">13.3%</td><td class="num">about 20–25%</td></tr>
+      </tbody></table></div>
+      <p>Finish rates matched the real 52% at the first milestone and now run high after the grappling and data fixes. Split decisions are too low, which I traced to longer, more one-sided ground control. Both are logged for re-tuning rather than hidden.</p>
+      </section>
+
+      <section id="implications"><h2>What it means and what's next</h2>
+      <ul>
+      <li><strong>Check results against reality.</strong> One fighter's number that didn't make sense pointed to a problem in a third of the data, and the fix moved the backtest from a coin flip to 58.9%.</li>
+      <li><strong>Next: a Power BI case study on the same data.</strong> I exported eight cleaned tables (fights, fighter-fight rows, ratings, league averages, calibration and backtest results). I'm designing the data model, SQL and DAX myself.</li>
+      <li><strong>Game scope:</strong> I narrowed the game to a finished, smaller piece: a playable arena on keyboard and phone, plus counter-striking and a split-decision re-tune. Larger milestones are paused, not deleted.</li>
+      </ul>
+      </section>
+
+      <section id="contribution"><h2>My contribution</h2>
+      <div class="contrib">
+      <div><h3>What I did</h3><ul>
+      <li>Designed the game and made every product and design decision</li>
+      <li>Wrote the rating and judging rules in plain English</li>
+      <li>Spotted the data anomaly, chose the title-fight check and the name-matching fix</li>
+      <li>Set the testing standards (e.g., never loosen a test just to make it pass) and reviewed every result</li>
+      </ul></div>
+      <div><h3>What the AI assistant did</h3><ul>
+      <li>Claude Code, an AI coding assistant, wrote the code, tests and data scripts from my specifications</li>
+      <li>It worked under rules I set: one task at a time, test after every change, no paid services, never publish without my permission</li>
+      </ul></div>
+      </div>
+      </section>
+
+      <section id="reflection"><h2>Limitations and reflection</h2>
+      <ul>
+      <li>Strike volume in the game is about half of real output (for example 6.5 vs 12.2 strikes per minute for Justin Gaethje), and standing accuracy is about 30% vs a real league average of 44.8%.</li>
+      <li>Patient counter-strikers win less than their records suggest, because the game doesn't model counter-punching yet. Submission specialists on their back have no sweeps yet.</li>
+      <li>One known data issue is logged rather than hand-edited, so the data can always be rebuilt from its sources.</li>
+      <li><strong>What I'd do differently:</strong> set targets for strike volume, accuracy and grappler win rates from the start instead of calibrating mainly to finish rates, and check what an asset pack really contains before planning around it.</li>
+      </ul>
+      </section>
+
+      <section id="materials"><h2>Supporting materials</h2>
+      <p>I first built the dashboard as a ChatGPT custom GPT, then moved the code to Claude Code for its stronger UX capabilities. A public version is being finished in a separate build and will be linked here once it's published.</p>
+      </section>
+      <nav class="case-footer-nav" aria-label="More projects">
+        <a class="btn btn-ghost" href="../index.html#projects"><svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> All projects</a>
+        <a class="btn btn-ghost" href="basketball-shot-quality.html">Next: What Makes a Quality Shot? →</a>
+      </nav>
+    </article>
+  </div>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year">2026</span> Tamera Taylor-Moore</p>
+    <ul class="footer-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../assets/documents/Tamera-Taylor-Moore-Resume.pdf">Resume (PDF)</a></li>
+      <li><a href="mailto:tamerataylormoore0@gmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/tamera-taylor-moore">LinkedIn</a></li>
+      <li><a href="https://github.com/SearJam17">GitHub</a></li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>

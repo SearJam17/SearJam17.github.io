@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SaltWise DC: AI for Good: DC Sustainability Challenge | Tamera Taylor-Moore</title>
+  <meta name="description" content="Case study: SaltWise DC, a three-person Streamlit prototype for the AI for Good: DC Sustainability Challenge, with salt-use scenario, sensitivity and break-even modeling.">
+  <meta name="author" content="Tamera Taylor-Moore">
+  <link rel="canonical" href="https://searjam17.github.io/projects/saltwise-dc.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SaltWise DC: AI for Good: DC Sustainability Challenge | Tamera Taylor-Moore">
+  <meta property="og:description" content="Case study: SaltWise DC, a three-person Streamlit prototype for the AI for Good: DC Sustainability Challenge, with salt-use scenario, sensitivity and break-even modeling.">
+  <meta property="og:url" content="https://searjam17.github.io/projects/saltwise-dc.html">
+  <meta property="og:image" content="https://searjam17.github.io/assets/images/saltwise/card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/images/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <nav class="container nav" aria-label="Main">
+    <a class="wordmark" href="../index.html"><span class="wordmark-mark" aria-hidden="true">TTM</span>Tamera Taylor-Moore</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu">
+      <span class="nav-toggle-icon" aria-hidden="true"></span><span>Menu</span>
+    </button>
+    <ul class="nav-list" id="primary-menu">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+      <li><a class="nav-cta" href="../assets/documents/Tamera-Taylor-Moore-Resume.pdf">Resume <span class="visually-hidden">(PDF)</span></a></li>
+    </ul>
+  </nav>
+</header>
+<main id="main">
+<div class="container">
+  <p class="breadcrumb"><a href="../index.html#projects"><svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>All projects</a></p>
+  <header class="case-hero">
+    <span class="category">Sustainability · Prototype</span>
+    <h1>SaltWise DC</h1>
+    <p class="case-summary">Our three-person team placed 2nd in the AI for Good: DC Sustainability Challenge. SaltWise DC sets weather and pavement evidence side by side for winter planners, flags conditions for human review, and models how much salt a different treatment plan could avoid, and when those savings disappear. People make every treatment decision.</p>
+    <dl class="overview"><div><dt>Context</dt><dd>AI for Good: DC Sustainability Challenge (Rounds 1 and 2)</dd></div><div><dt>Result</dt><dd>2nd place</dd></div><div><dt>Team</dt><dd>Me and two teammates</dd></div><div><dt>My role</dt><dd>Market and sustainability research, forecast API selection, dashboard development, DC guideline review</dd></div><div><dt>Tools</dt><dd>Python, Streamlit, Xweather API</dd></div><div><dt>Timeframe</dt><dd>October 2026</dd></div></dl>
+  </header>
+  <div class="case-layout">
+    <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#problem">The problem</a></li><li><a href="#data">Data</a></li><li><a href="#approach">Approach</a></li><li><a href="#findings">Findings</a></li><li><a href="#recommendations">Recommendations</a></li><li><a href="#contribution">My contribution</a></li><li><a href="#reflection">Limitations</a></li><li><a href="#materials">Materials</a></li></ol></nav>
+    <article class="case-content">
+      <section id="problem"><h2>The problem</h2>
+      <p>Road salt keeps streets passable, but excess salt runs off into streams and damages vegetation and infrastructure. The research we cited found rising chloride levels in 84% of the urban streams studied (historical, multi-city evidence, not a current DC rate). Winter planners have to decide when and how to treat under uncertainty, often with temperatures hovering near freezing and precipitation switching between rain, sleet and snow.</p>
+      <p><strong>Our question:</strong> how might DC-area winter planners use weather, pavement and site evidence to avoid unnecessary salt while still meeting access and service requirements?</p>
+      </section>
+
+      <section id="data"><h2>Data and evidence</h2>
+      <ul>
+      <li><strong>Forecasts:</strong> National Weather Service air temperature, dew point, wind and precipitation up to 72 hours for five DC demonstration road points, including two bridges. In Round 1 the dashboard also pulled Xweather's modeled pavement forecast up to 24 hours. Its free tier limited us to five road points.</li>
+      <li><strong>Ten planning factors:</strong> we researched ten factors, from time of day and tree canopy to dew point, wind and precipitation type. Each one is marked as screened, displayed, or future work, and none carries a calibrated weight.</li>
+      <li><strong>Stakeholder feedback:</strong> DC's Department of Public Works described the forecast tools it already uses and its storm-based deployment packages. It confirmed that rain at the start of a storm discourages pretreatment, and it introduced the team to environment-agency (DOEE) contacts. There's no data-sharing agreement, pilot commitment or endorsement.</li>
+      <li><strong>Limitations:</strong> the public demo runs on synthetic storm scenarios, the five points are demonstration settings rather than verified sensors, and no DC-specific pavement model has been trained.</li>
+      </ul>
+      </section>
+
+      <section id="approach"><h2>Approach</h2>
+      <ul>
+      <li><strong>Prototype:</strong> a Python/Streamlit dashboard that charts air against pavement temperature with a freezing line, raises rule-based review flags (for example, rain before snow) with plain-language briefings, and exports the evidence behind each flag as JSON.</li>
+      <li><strong>Evidence labeling:</strong> every value is tagged as a provider forecast, simulation, physical reference or unavailable, so gaps stay visible instead of being filled in.</li>
+      <li><strong>Storm Lab model:</strong> a deterministic mass-balance comparison over five lane-miles. The baseline is 200 lb per lane-mile × 2 rounds = 2,000 lb of salt. The alternative is 160 lb per lane-mile × 1 round = 800 lb. Sensitivity analysis then adds back the retreatment a storm might still need.</li>
+      </ul>
+      <div class="gallery">
+      <figure><img src="../assets/images/saltwise/demo-home.jpg" width="800" height="600" loading="lazy" alt="SaltWise DC home screen with a DC district outline and the tagline 'Sustainability first, people decide, simulated scenarios'"><figcaption>Home: a planning layer beside DC's existing forecasts and deployment plans.</figcaption></figure>
+      <figure><img src="../assets/images/saltwise/demo-outlook.jpg" width="800" height="600" loading="lazy" alt="Storm Outlook screen describing a 72-hour NWS outlook with official DC alerts and an illustrative forecast timeline"><figcaption>Storm Outlook: a 72-hour NWS outlook and official alerts.</figcaption></figure>
+      <figure><img src="../assets/images/saltwise/demo-evidence.jpg" width="800" height="600" loading="lazy" alt="Evidence screen listing how values are labeled: provider forecast, simulation, physical reference, unavailable"><figcaption>Evidence: every value is labeled by where it comes from.</figcaption></figure>
+      </div>
+      </section>
+
+      <section id="findings"><h2>Findings</h2>
+      <figure class="bar-chart">
+      <figcaption>Salt avoided in the Storm Lab scenario, by retreatment needed<span>Hypothetical scenario arithmetic over five lane-miles. These aren't measured savings.</span></figcaption>
+      <div class="bar"><span class="bar-label">No retreatment</span><span class="bar-track"><span class="bar-fill" style="width:60%">60%</span></span></div>
+      <div class="bar"><span class="bar-label">+400 lb retreatment</span><span class="bar-track"><span class="bar-fill" style="width:40%">40%</span></span></div>
+      <div class="bar"><span class="bar-label">+1,200 lb retreatment</span><span class="bar-track"><span class="bar-fill bar-fill--low" style="width:0%">0%</span></span></div>
+      <p class="bar-note">Reduction = 1 − (800 lb + retreatment) ÷ 2,000 lb. Break-even is 1,200 lb of retreatment.</p>
+      </figure>
+      <ul>
+      <li><strong>The saving is conditional.</strong> The 60% reduction holds only if no further treatment is needed. If the storm still needs 1,200 lb later, the saving is gone. That's why the evaluation plan measures the whole storm, not just the first application.</li>
+      <li><strong>40–60% in simulated pilot scenarios.</strong> Our test runs used invented storm data, so the range is hypothetical, and the chart shows how retreatment can erase it.</li>
+      <li><strong>Salt savings alone don't pay for software.</strong> A 1,200 lb saving is about 0.6 tons per storm. At a cited Maryland procurement price of $91.20 per ton, that's roughly $55 per storm. So the team positioned SaltWise as operational decision support, not guaranteed salt savings.</li>
+      <li><strong>DC already has sophisticated tools.</strong> Public Works' feedback showed that rain-before-snow timing is an established practice, so the prototype's role is to make assumptions and evidence gaps visible, not to claim better forecasts.</li>
+      </ul>
+      </section>
+
+      <section id="recommendations"><h2>Recommendations</h2>
+      <ul>
+      <li>Recruit one planning partner and agree on success and stop criteria up front.</li>
+      <li>Replay past storms using only the information available at each decision time, then run a supervised shadow pilot with existing operations fully in control.</li>
+      <li>Measure salt per comparable lane-mile alongside road service, missed hazards, planner overrides and planning time. Monitor runoff chloride where practical.</li>
+      <li>Test pricing (a proposed seasonal pilot license) with real buyers before claiming demand.</li>
+      </ul>
+      <p class="callout callout--note"><span class="callout-title">Status</span>These are proposals. Nothing has been piloted, and no salt savings or environmental benefits have been measured.</p>
+      </section>
+
+      <section id="contribution"><h2>My contribution</h2>
+      <div class="contrib">
+      <div><h3>What I did</h3><ul>
+      <li>Led market research and the sustainability research behind the project.</li>
+      <li>Researched forecast APIs and chose Xweather for air and pavement temperature, so the AI assistant worked from the right inputs.</li>
+      <li>Chose to focus the stakeholder pitch on Michigan Avenue NE: one of the five roads the free API tier allowed, and the one with the highest traffic, so it gave us the most data in a short window.</li>
+      <li>Built the framework for the current dashboard, the version in the live demo.</li>
+      <li>Made the agent's suggestions and human-review instructions reflect DC-specific guidelines, cross-checking the legality of proposed recommendations and how often salt could be applied.</li>
+      </ul></div>
+      <div><h3>What my teammates did</h3><ul>
+      <li>Designed parts of the dashboard I wasn't involved in.</li>
+      <li>The memo, deck and Storm Lab model were team deliverables.</li>
+      </ul></div>
+      </div>
+      <figure class="figure"><img src="../assets/images/saltwise/award.jpg" width="1200" height="677" loading="lazy" alt="Tamera Taylor-Moore and a teammate holding AI for Good: DC Sustainability Challenge 2nd place plaques at American University's Veloric Center for Entrepreneurship"><figcaption>Accepting 2nd place with a teammate at American University's Veloric Center for Entrepreneurship.</figcaption></figure>
+      </section>
+
+      <section id="reflection"><h2>Limitations</h2>
+      <ul>
+      <li>Scenarios are synthetic and the savings are arithmetic, not field results. Less salt alone doesn't prove equal safety or environmental benefit.</li>
+      <li>Customer segments, prices and willingness to pay are untested hypotheses.</li>
+      <li>AI assisted research and development, but the running product uses deterministic Python rules. There's no trained DC pavement model.</li>
+      </ul>
+      </section>
+
+      <section id="materials"><h2>Supporting materials</h2>
+      <ul class="materials">
+      <li><a href="https://saltwise-dc-demo.streamlit.app/"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg><span>Live prototype (Streamlit)<small>Opens the public demo. It may take a moment to wake up.</small></span></a></li>
+      <li><a href="../assets/documents/saltwise-dc-round2-deck.pdf"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg><span>Round 2 pitch deck with Q&amp;A backup (PDF, 25 slides)<small>Portfolio copy: teammates' names removed, and the impact slide labels the 40–60% range as simulated.</small></span></a></li>
+      <li><a href="../assets/documents/saltwise-dc-round1-memo.pdf"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg><span>Round 1 business memo (PDF, 7 pages)<small>Research, ten planning factors, prototype description and market analysis.</small></span></a></li>
+      </ul>
+      </section>
+      <nav class="case-footer-nav" aria-label="More projects">
+        <a class="btn btn-ghost" href="../index.html#projects"><svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> All projects</a>
+        <a class="btn btn-ghost" href="intel-sustainability.html">Next: Intel Sustainability, Made Visible →</a>
+      </nav>
+    </article>
+  </div>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year">2026</span> Tamera Taylor-Moore</p>
+    <ul class="footer-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../assets/documents/Tamera-Taylor-Moore-Resume.pdf">Resume (PDF)</a></li>
+      <li><a href="mailto:tamerataylormoore0@gmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/tamera-taylor-moore">LinkedIn</a></li>
+      <li><a href="https://github.com/SearJam17">GitHub</a></li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>
