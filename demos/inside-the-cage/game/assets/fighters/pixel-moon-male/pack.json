@@ -1,0 +1,713 @@
+{
+ "name": "pixel-moon-male",
+ "license": "LICENSE.txt",
+ "credit": "Fighter sprites: Pixel Moon Studio",
+ "source": "https://pixel-moon-studio.itch.io/male-realistic-pixel-art-template-sprite-pack",
+ "frameWidth": 128,
+ "frameHeight": 128,
+ "columns": 10,
+ "facing": "right",
+ "anchor": {
+  "x": 0.5156,
+  "y": 1.0
+ },
+ "scale": 3,
+ "pixelArt": true,
+ "bodyHeight": 74,
+ "recolor": "body-part colour coded (see dist/game/render/recolor.js)",
+ "sheets": {
+  "crouch_idle": {
+   "file": "Male_spritesheet_crouch_idle.png",
+   "frames": 74
+  },
+  "crouch_to_stand": {
+   "file": "Male_spritesheet_crouch_to_stand.png",
+   "frames": 20
+  },
+  "crouch_walk": {
+   "file": "Male_spritesheet_crouch_walk.png",
+   "frames": 42
+  },
+  "death_1": {
+   "file": "Male_spritesheet_death_1.png",
+   "frames": 72
+  },
+  "death_2": {
+   "file": "Male_spritesheet_death_2.png",
+   "frames": 103
+  },
+  "hand_raise_built": {
+   "file": "Male_spritesheet_hand_raise_built.png",
+   "frames": 5
+  },
+  "idle": {
+   "file": "Male_spritesheet_idle.png",
+   "frames": 60
+  },
+  "kick_high": {
+   "file": "Male_spritesheet_kick_high.png",
+   "frames": 41
+  },
+  "kick_low": {
+   "file": "Male_spritesheet_kick_low.png",
+   "frames": 46
+  },
+  "kick_spin_high": {
+   "file": "Male_spritesheet_kick_spin_high.png",
+   "frames": 51
+  },
+  "pull_heavy": {
+   "file": "Male_spritesheet_pull_heavy.png",
+   "frames": 34
+  },
+  "punch_1": {
+   "file": "Male_spritesheet_punch_1.png",
+   "frames": 26
+  },
+  "punch_2": {
+   "file": "Male_spritesheet_punch_2.png",
+   "frames": 29
+  },
+  "punch_3": {
+   "file": "Male_spritesheet_punch_3.png",
+   "frames": 27
+  },
+  "punch_quad": {
+   "file": "Male_spritesheet_punch_quad.png",
+   "frames": 47
+  },
+  "punch_straight": {
+   "file": "Male_spritesheet_punch_straight.png",
+   "frames": 45
+  },
+  "push": {
+   "file": "Male_spritesheet_push.png",
+   "frames": 241
+  },
+  "run": {
+   "file": "Male_spritesheet_run.png",
+   "frames": 18
+  },
+  "run_back": {
+   "file": "Male_spritesheet_run_back.png",
+   "frames": 20
+  }
+ },
+ "animations": {
+  "idle": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "idle",
+       0,
+       59
+      ]
+     ],
+     "length": 60
+    }
+   ],
+   "loop": true,
+   "fps": 30
+  },
+  "walk_forward": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "run",
+       0,
+       17
+      ]
+     ],
+     "length": 18
+    }
+   ],
+   "loop": true,
+   "fps": 20
+  },
+  "walk_back": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "run_back",
+       0,
+       19
+      ]
+     ],
+     "length": 20
+    }
+   ],
+   "loop": true,
+   "fps": 20
+  },
+  "jab": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "punch_1",
+       1,
+       25
+      ]
+     ],
+     "length": 25,
+     "impact": 14
+    },
+    {
+     "segments": [
+      [
+       "punch_straight",
+       0,
+       44
+      ]
+     ],
+     "length": 45,
+     "impact": 24
+    }
+   ],
+   "timing": "action"
+  },
+  "cross": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "punch_3",
+       1,
+       26
+      ]
+     ],
+     "length": 26,
+     "impact": 16
+    }
+   ],
+   "timing": "action"
+  },
+  "hook": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "punch_2",
+       0,
+       28
+      ]
+     ],
+     "length": 29,
+     "impact": 15
+    }
+   ],
+   "timing": "action"
+  },
+  "kick": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "kick_high",
+       0,
+       40
+      ]
+     ],
+     "length": 41,
+     "impact": 16
+    },
+    {
+     "segments": [
+      [
+       "kick_low",
+       1,
+       45
+      ]
+     ],
+     "length": 45,
+     "impact": 17
+    }
+   ],
+   "timing": "action"
+  },
+  "all_in": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "kick_spin_high",
+       0,
+       50
+      ]
+     ],
+     "length": 51,
+     "impact": 22
+    },
+    {
+     "segments": [
+      [
+       "punch_quad",
+       1,
+       46
+      ]
+     ],
+     "length": 46,
+     "impact": 11
+    }
+   ],
+   "timing": "action"
+  },
+  "combo": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "punch_quad",
+       1,
+       46
+      ]
+     ],
+     "length": 46,
+     "impact": 11
+    }
+   ],
+   "timing": "action"
+  },
+  "block": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "punch_straight",
+       0,
+       0
+      ]
+     ],
+     "length": 1
+    }
+   ],
+   "hold": true
+  },
+  "slip": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "crouch_to_stand",
+       19,
+       13
+      ],
+      [
+       "crouch_to_stand",
+       13,
+       19
+      ]
+     ],
+     "length": 14
+    }
+   ],
+   "fps": 40
+  },
+  "duck": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "crouch_to_stand",
+       19,
+       7
+      ],
+      [
+       "crouch_to_stand",
+       7,
+       19
+      ]
+     ],
+     "length": 26
+    }
+   ],
+   "fps": 48
+  },
+  "lean_back": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "death_1",
+       1,
+       6
+      ],
+      [
+       "death_1",
+       6,
+       1
+      ]
+     ],
+     "length": 12
+    }
+   ],
+   "fps": 36
+  },
+  "step_back": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "run_back",
+       2,
+       9
+      ]
+     ],
+     "length": 8
+    }
+   ],
+   "fps": 36
+  },
+  "raise_hand": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "hand_raise_built",
+       0,
+       4
+      ]
+     ],
+     "length": 5
+    }
+   ],
+   "hold": true,
+   "fps": 10
+  },
+  "sit": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "crouch_to_stand",
+       19,
+       1
+      ],
+      [
+       "death_2",
+       35,
+       42
+      ]
+     ],
+     "length": 27
+    }
+   ],
+   "hold": true,
+   "fps": 24
+  },
+  "hit_head": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "death_1",
+       1,
+       9
+      ],
+      [
+       "death_1",
+       9,
+       1
+      ]
+     ],
+     "length": 18
+    }
+   ],
+   "fps": 40
+  },
+  "knockdown": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "death_2",
+       1,
+       72
+      ]
+     ],
+     "length": 72
+    }
+   ],
+   "hold": true,
+   "fps": 48
+  },
+  "get_up": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "death_2",
+       72,
+       36
+      ],
+      [
+       "crouch_to_stand",
+       1,
+       19
+      ]
+     ],
+     "length": 56
+    }
+   ],
+   "fps": 40
+  },
+  "ko": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "death_1",
+       1,
+       71
+      ]
+     ],
+     "length": 71
+    }
+   ],
+   "hold": true,
+   "fps": 36
+  },
+  "victory": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "hand_raise_built",
+       0,
+       4
+      ]
+     ],
+     "length": 5
+    }
+   ],
+   "hold": true,
+   "fps": 10
+  },
+  "defeat": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "crouch_idle",
+       1,
+       73
+      ]
+     ],
+     "length": 73
+    }
+   ],
+   "loop": true,
+   "fps": 24
+  },
+  "takedown_shoot": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "crouch_to_stand",
+       19,
+       8
+      ],
+      [
+       "crouch_walk",
+       1,
+       16
+      ]
+     ],
+     "length": 28,
+     "impact": 12
+    }
+   ],
+   "timing": "action"
+  },
+  "taken_down": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "death_2",
+       36,
+       60
+      ]
+     ],
+     "length": 25
+    }
+   ],
+   "hold": true,
+   "fps": 40
+  },
+  "sprawl": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "crouch_to_stand",
+       19,
+       1
+      ]
+     ],
+     "length": 19
+    }
+   ],
+   "hold": true,
+   "fps": 40
+  },
+  "clinch": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "push",
+       1,
+       60
+      ]
+     ],
+     "length": 60
+    }
+   ],
+   "loop": true,
+   "fps": 30
+  },
+  "ground_top": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "crouch_idle",
+       1,
+       73
+      ]
+     ],
+     "length": 73
+    }
+   ],
+   "loop": true,
+   "fps": 24
+  },
+  "ground_bottom": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "death_2",
+       64,
+       72
+      ],
+      [
+       "death_2",
+       72,
+       64
+      ]
+     ],
+     "length": 18
+    }
+   ],
+   "loop": true,
+   "fps": 12
+  },
+  "ground_strike": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "pull_heavy",
+       1,
+       16
+      ],
+      [
+       "pull_heavy",
+       16,
+       1
+      ]
+     ],
+     "length": 32
+    }
+   ],
+   "fps": 48
+  },
+  "submission_apply": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "pull_heavy",
+       1,
+       33
+      ],
+      [
+       "pull_heavy",
+       33,
+       1
+      ]
+     ],
+     "length": 66
+    }
+   ],
+   "loop": true,
+   "fps": 30
+  },
+  "submission_defend": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "death_2",
+       55,
+       72
+      ],
+      [
+       "death_2",
+       72,
+       55
+      ]
+     ],
+     "length": 36
+    }
+   ],
+   "loop": true,
+   "fps": 24
+  },
+  "tap": {
+   "variants": [
+    {
+     "segments": [
+      [
+       "death_2",
+       72,
+       72
+      ]
+     ],
+     "length": 1
+    }
+   ],
+   "hold": true
+  }
+ },
+ "substitutes": {
+  "block": "no block animation: holds the high-guard first frame of punch_straight",
+  "hit_head": "no hit reaction: first 9 frames of death_1 (head snaps back), then reversed",
+  "slip": "pack dodge_back/dodge_fwd are byte-identical copies of death_2/death_1: shallow crouch_to_stand dip instead",
+  "duck": "deeper crouch_to_stand dip",
+  "lean_back": "first 6 frames of death_1 (head moves back), then reversed",
+  "step_back": "a few frames of run_back (engine moves the fighter ~0.4 units)",
+  "raise_hand": "BUILT: idle frame 0 with the raised lead arm from climb_rope 1-4 (joined at the shoulder)",
+  "sit": "crouch_to_stand reversed, then the sitting frames of death_2",
+  "victory": "BUILT hand raise (same as raise_hand)",
+  "defeat": "no defeat pose: crouch_idle (hunched)",
+  "walk_forward": "no walk: run, slowed down",
+  "walk_back": "no walk: run_back, slowed down",
+  "takedown_shoot": "crouch_to_stand reversed (level change) + crouch_walk lunge",
+  "taken_down": "middle of death_2 (sits, then falls back)",
+  "sprawl": "crouch_to_stand reversed",
+  "clinch": "push (leaning into something)",
+  "ground_top": "crouch_idle drawn over the bottom fighter",
+  "ground_bottom": "last frames of death_2 (lying), small loop",
+  "ground_strike": "pull_heavy reach (renderer adds a downward dip)",
+  "submission_apply": "pull_heavy loop",
+  "submission_defend": "end of death_2, small squirm loop",
+  "tap": "lying frame + \"TAP\" banner"
+ }
+}

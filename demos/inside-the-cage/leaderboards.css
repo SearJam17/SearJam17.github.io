@@ -1,0 +1,66 @@
+/* Leaderboards subtab (leaderboards.js): top-10 lists drawn as a pyramid. Same colours and fonts as the dashboard. */
+.lb-intro{margin:0 0 14px;max-width:62ch;font-size:.95rem;line-height:1.6}
+.lb-min{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 18px;padding:0;border:0}
+.lb-min legend{float:left;margin-right:6px;font-size:.82rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#5d5d5d}
+.lb-min label{position:relative;margin:0}
+.lb-min input{position:absolute;opacity:0;width:1px;height:1px}
+.lb-min span{display:inline-flex;align-items:center;justify-content:center;min-width:52px;min-height:44px;padding:0 14px;border:1px solid #bcbcbc;background:#fafafa;font-weight:700;cursor:pointer}
+.lb-min input:checked+span{background:#111;color:#fff;border-color:#111;box-shadow:inset 0 -4px 0 #d71920}
+.lb-min input:focus-visible+span{outline:2px solid #d71920;outline-offset:3px}
+
+.lb-board{border-top:1px solid #dedede;padding:18px 0 6px}
+.lb-board h3{margin:0;font-size:1.25rem}
+.lb-sub{margin:4px 0 6px;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#b0161c}
+.lb-what{margin:0 0 6px;font-size:.92rem;line-height:1.55}
+.lb-rule{margin:8px 0 0;font-size:.8rem;line-height:1.55;color:#5d5d5d}
+.lb-footnote{margin:14px 0 0;font-size:.8rem;color:#5d5d5d}
+
+/* The pyramid: 8 equal columns, each step 2 wide; rows of 1, 2, 3 and 4 centred under each other. */
+.lb-pyramid{list-style:none;margin:16px 0 8px;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px}
+.lb-step{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0;padding:12px 10px;text-align:center;background:#f6f6f6;border:1px solid #dedede;border-top:3px solid #a9a9a9}
+.lb-step:nth-child(1){grid-area:1/4/2/6;background:#fff;border-top:5px solid #d71920;box-shadow:0 4px 14px #0001}
+.lb-step:nth-child(2){grid-area:2/3/3/5;border-top-color:#252525}
+.lb-step:nth-child(3){grid-area:2/5/3/7;border-top-color:#252525}
+.lb-step:nth-child(4){grid-area:3/2/4/4}
+.lb-step:nth-child(5){grid-area:3/4/4/6}
+.lb-step:nth-child(6){grid-area:3/6/4/8}
+.lb-step:nth-child(7){grid-area:4/1/5/3}
+.lb-step:nth-child(8){grid-area:4/3/5/5}
+.lb-step:nth-child(9){grid-area:4/5/5/7}
+.lb-step:nth-child(10){grid-area:4/7/5/9}
+.lb-rank{font-family:"Space Grotesk",Inter,Arial,sans-serif;font-weight:700;font-size:.8rem;color:#5d5d5d}
+.lb-step:nth-child(1) .lb-rank{color:#d71920}
+.lb-name{font-weight:700;line-height:1.25;overflow-wrap:anywhere}
+.lb-stat{font-size:1.15rem;font-weight:700;font-variant-numeric:tabular-nums}
+.lb-step:nth-child(1) .lb-stat{font-size:1.5rem}
+.lb-fights{font-size:.76rem;color:#5d5d5d}
+.lb-compare{margin-top:6px;min-height:36px;padding:0 12px;border:1px solid #111;background:#fff;color:#111;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer}
+.lb-compare:hover{background:#111;color:#fff}
+.lb-compare:focus-visible{outline:2px solid #d71920;outline-offset:2px}
+.lb-empty{grid-column:1/-1;color:#5d5d5d}
+
+.lb-table summary{font-size:.82rem;font-weight:600;color:#5d5d5d;cursor:pointer}
+.lb-table .table-scroll{overflow-x:auto}
+.lb-table table{margin-top:8px}
+
+/* "← Back to Leaderboards" above chart 02 after a Compare jump. */
+.lb-return{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:0 0 12px;padding:8px 12px;background:#f6f6f6;border-left:4px solid #d71920;font-size:.88rem}
+.lb-return[hidden]{display:none}
+.lb-return button{min-height:36px;padding:0;border:0;background:none;font:inherit;font-weight:700;color:#111;text-decoration:underline;cursor:pointer}
+.lb-return button:focus-visible{outline:2px solid #d71920;outline-offset:2px}
+.lb-return-note{color:#5d5d5d}
+
+/* Phones: the top three keep the pyramid (1, then 2 and 3); ranks 4 to 10 continue as compact rows. */
+@media(max-width:700px){
+ .lb-min legend{float:none;width:100%;margin:0 0 6px}
+ .lb-pyramid{grid-template-columns:1fr 1fr;gap:8px}
+ .lb-step:nth-child(1){grid-area:1/1/2/3;justify-self:center;width:min(100%,260px)}
+ .lb-step:nth-child(2){grid-area:2/1/3/2}
+ .lb-step:nth-child(3){grid-area:2/2/3/3}
+ .lb-step:nth-child(n+4){grid-area:auto/1/auto/3;display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"rank name stat" "rank fights compare";align-items:center;gap:2px 10px;text-align:left;padding:8px 10px}
+ .lb-step:nth-child(n+4) .lb-rank{grid-area:rank;font-size:1rem}
+ .lb-step:nth-child(n+4) .lb-name{grid-area:name}
+ .lb-step:nth-child(n+4) .lb-stat{grid-area:stat;font-size:1rem;text-align:right}
+ .lb-step:nth-child(n+4) .lb-fights{grid-area:fights}
+ .lb-step:nth-child(n+4) .lb-compare{grid-area:compare;margin-top:0}
+}

@@ -11,7 +11,7 @@
   <meta property="og:title" content="Inside the Cage: UFC stats dashboard and stats-driven fighting game | Tamera Taylor-Moore">
   <meta property="og:description" content="Case study: a UFC statistics dashboard turned into a stats-driven fighting game, calibrated and backtested against real fight results by Tamera Taylor-Moore.">
   <meta property="og:url" content="https://searjam17.github.io/projects/inside-the-cage.html">
-  <meta property="og:image" content="https://searjam17.github.io/assets/images/social-preview.png">
+  <meta property="og:image" content="https://searjam17.github.io/assets/images/inside-the-cage/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -43,15 +43,32 @@
   <header class="case-hero">
     <span class="category category--sports">Sports analytics</span>
     <h1>Inside the Cage</h1>
-    <p class="case-summary">I took my UFC statistics dashboard and started turning it into a 2D fighting game in which every fighter strikes, defends and wrestles the way their real record says they do. Then I checked the game against reality, and that check exposed an error in a third of the source data.</p>
-    <dl class="overview"><div><dt>Context</dt><dd>Personal portfolio project</dd></div><div><dt>Team</dt><dd>Individual, built with an AI coding assistant</dd></div><div><dt>My role</dt><dd>Game designer, rule writer, data investigator and tester</dd></div><div><dt>Tools</dt><dd>ChatGPT custom GPT (first dashboard), then Claude Code; Python, JavaScript, Node.js tests, Git</dd></div><div><dt>Timeframe</dt><dd>October 2026–present</dd></div><div><dt>Status</dt><dd>Game engine complete and tested; playable version in progress</dd></div></dl>
+    <p class="case-summary">I took my UFC statistics dashboard and started turning it into a 2D fighting game in which every fighter strikes, defends and wrestles the way their real record says they do. Then I checked the game against reality, and that check exposed an error in a third of the source data. The dashboard and the fight game are now live.</p>
+    <div class="hero-actions"><a class="btn btn-primary" href="../demos/inside-the-cage/index.html"><svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg> Open the live dashboard</a><a class="btn btn-secondary" href="#dashboard">See screenshots</a></div>
+    <dl class="overview"><div><dt>Context</dt><dd>Personal portfolio project</dd></div><div><dt>Team</dt><dd>Individual, built with an AI coding assistant</dd></div><div><dt>My role</dt><dd>Game designer, rule writer, data investigator and tester</dd></div><div><dt>Tools</dt><dd>ChatGPT custom GPT (first dashboard), then Claude Code; Python, JavaScript, Node.js tests, Git</dd></div><div><dt>Timeframe</dt><dd>October 2026–present</dd></div><div><dt>Status</dt><dd>Live dashboard and watchable fight game; playable controls in progress</dd></div></dl>
   </header>
   <div class="case-layout">
-    <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#problem">The problem</a></li><li><a href="#data">Data</a></li><li><a href="#approach">Approach</a></li><li><a href="#findings">Findings</a></li><li><a href="#implications">Implications</a></li><li><a href="#contribution">My contribution</a></li><li><a href="#reflection">Limitations</a></li><li><a href="#materials">Materials</a></li></ol></nav>
+    <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#problem">The problem</a></li><li><a href="#dashboard">The dashboard</a></li><li><a href="#data">Data</a></li><li><a href="#approach">Approach</a></li><li><a href="#findings">Findings</a></li><li><a href="#implications">Implications</a></li><li><a href="#contribution">My contribution</a></li><li><a href="#reflection">Limitations</a></li><li><a href="#materials">Materials</a></li></ol></nav>
     <article class="case-content">
       <section id="problem"><h2>The problem</h2>
       <p>A dashboard can show that one fighter throws more strikes or shoots for more takedowns than another. I wanted to know whether those same numbers could <strong>drive</strong> a believable fight: a high-volume striker should throw more, a strong wrestler should shoot more, a hard-to-hit fighter should defend more.</p>
       <p>The test I set for myself: a simulation built only from fight records should end fights, score rounds and pick winners at rates close to the real UFC. Otherwise it's a game that just happens to use real names.</p>
+      </section>
+
+      <section id="dashboard"><h2>The dashboard</h2>
+      <p>The dashboard summarises 8,709 recorded UFC fights at a glance, then splits the detail into six sections: Fighters (striking pace, accuracy and a fighter finder), Leaderboards, Fight length, Grappling, Outcomes and Upcoming events. A second tab runs the fight game, where two fighters' recorded stats drive a computer-vs-computer bout scored by three judges.</p>
+      <ul>
+      <li><strong>Built for newcomers:</strong> the Leaderboards tab ranks fighters on one measure at a time (most accurate, busiest, accurate and busy, most experienced) with a minimum-fights setting, so small samples don't top the lists.</li>
+      <li><strong>Searchable, not memorised:</strong> the fighter finder uses a browsable A–Z dropdown, so visitors don't need to know names in advance.</li>
+      <li><strong>Honest by design:</strong> missing statistics are excluded rather than treated as zero, every chart explains why it exists, and the page states it describes past fights, not who would win.</li>
+      </ul>
+      <div class="gallery">
+      <figure><img src="../assets/images/inside-the-cage/dashboard.jpg" width="1400" height="875" loading="lazy" alt="Inside the Cage dashboard: summary tiles for 8,709 fights, a 52.0% finish rate, 44.8% strike accuracy and 5.0 minutes per takedown, above six section tabs"><figcaption>Summary row: fights recorded, finish rate, strike accuracy and takedown pace, calculated from the same data as the charts.</figcaption></figure>
+      <figure><img src="../assets/images/inside-the-cage/leaderboards.jpg" width="1400" height="875" loading="lazy" alt="Leaderboards tab showing a top-three podium of the most accurate strikers with a minimum of 10 fights"><figcaption>Leaderboards: ready-made top-10 lists for people new to the sport.</figcaption></figure>
+      <figure><img src="../assets/images/inside-the-cage/upcoming.jpg" width="1400" height="875" loading="lazy" alt="Upcoming events tab with cards listing date, main event, venue and city for nine upcoming events"><figcaption>Upcoming events: main events, venues and dates. Past events drop off automatically.</figcaption></figure>
+      <figure><img src="../assets/images/inside-the-cage/game-start.jpg" width="1400" height="692" loading="lazy" alt="Fight Game start screen with Start, Rules and How to play buttons between two pixel-art fighters in red and blue shorts"><figcaption>Fight Game start screen. Fighter art is a recoloured generic template, not real fighters' likenesses.</figcaption></figure>
+      <figure><img src="../assets/images/inside-the-cage/game-fight.jpg" width="1400" height="684" loading="lazy" alt="Pixel-art fight in round one: the red-corner fighter throws a punch at the blue-corner fighter, with health and stamina bars above"><figcaption>A computer-vs-computer bout: each fighter's pace, accuracy, defence and takedowns come from their record.</figcaption></figure>
+      </div>
       </section>
 
       <section id="data"><h2>Data and constraints</h2>
@@ -59,7 +76,7 @@
       <li><strong>Scope:</strong> 8,709 recorded UFC fights, 775 events and 2,696 fighters, with fight data through May 2026. 2,535 fighters have enough data for the search tool and the game.</li>
       <li><strong>Verification source:</strong> per-round statistics by fighter name from a second public dataset (Greco1899/scrape_ufc_stats, GPL-3.0). I downloaded only its CSV files and ran none of its code.</li>
       <li><strong>Constraint:</strong> UFC's website terms don't allow automated copying of event listings or photos, so I built on the historical data and my own analysis instead.</li>
-      <li><strong>Not public yet:</strong> real fighter names, the data licence and the art licence still need to be resolved before a public release, so the dashboard and game aren't linked here.</li>
+      <li><strong>Public demo:</strong> an unofficial fan project, not affiliated with or endorsed by the UFC, and not a prediction or betting tool. Fighter art is a recoloured generic template pack (Pixel Moon Studio); referees are fictional and there are no likenesses of real fighters.</li>
       </ul>
       </section>
 
@@ -84,7 +101,7 @@
       <li><span class="stat-value">3,060</span><span class="stat-label">of 8,709 fights (35%) had swapped stats</span></li>
       <li><span class="stat-value">5,618</span><span class="stat-label">fights already correct</span></li>
       <li><span class="stat-value">0</span><span class="stat-label">fights left unexplained after matching by name</span></li>
-      <li><span class="stat-value">73</span><span class="stat-label">automated tests passing (61 JavaScript, 12 Python)</span></li>
+      <li><span class="stat-value">96</span><span class="stat-label">automated tests passing (84 JavaScript, 12 Python)</span></li>
       </ul>
       <p>I fixed the cause in the data-cleaning script by matching every fight against the second dataset by fighter name, rather than editing anything by hand. New tests fail on the old data and pass on the fixed data.</p>
 
@@ -126,6 +143,7 @@
       <li>Wrote the rating and judging rules in plain English</li>
       <li>Spotted the data anomaly, chose the title-fight check and the name-matching fix</li>
       <li>Set the testing standards (e.g., never loosen a test just to make it pass) and reviewed every result</li>
+      <li>Specified the dashboard's arcade-style intro, the Leaderboards tab for newcomers and the browsable fighter search, then tested them myself</li>
       </ul></div>
       <div><h3>What the AI assistant did</h3><ul>
       <li>Claude Code, an AI coding assistant, wrote the code, tests and data scripts from my specifications</li>
@@ -144,7 +162,8 @@
       </section>
 
       <section id="materials"><h2>Supporting materials</h2>
-      <p>I first built the dashboard as a ChatGPT custom GPT, then moved the code to Claude Code for its stronger UX capabilities. A public version is being finished in a separate build and will be linked here once it's published.</p>
+      <ul class="materials"><li><a href="../demos/inside-the-cage/index.html"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg><span>Live dashboard and fight game<small>Opens in your browser. Includes a short intro animation, then six dashboard sections and the Fight Game tab. Works on desktop and phone.</small></span></a></li></ul>
+      <p>I first built the dashboard as a ChatGPT custom GPT, then moved the code to Claude Code for its stronger UX capabilities. The data-cleaning scripts, raw data and tests stay private.</p>
       </section>
       <nav class="case-footer-nav" aria-label="More projects">
         <a class="btn btn-ghost" href="../index.html#projects"><svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> All projects</a>

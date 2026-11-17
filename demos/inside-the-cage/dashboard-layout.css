@@ -1,0 +1,75 @@
+/* Layout pass: same colours and fonts, no long scroll. */
+header{padding-top:20px;padding-bottom:18px;margin-bottom:12px}
+header h1{font-size:clamp(2rem,4vw,2.9rem)}
+header .report-label{margin:6px 0}
+header .intro{margin-top:4px}
+.view-tabs{margin-bottom:16px}
+.cage-notice{margin:0 0 14px;padding-top:9px;padding-bottom:9px;font-size:.78rem;line-height:1.5}
+.sec-off{display:none!important}
+
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 12px}
+.kpi{display:block;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;background:#fff;border:1px solid #dedede;border-top:3px solid #d71920;padding:14px 16px;min-width:0}
+.kpi:hover{background:#fff5f5}
+.kpi-label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#5d5d5d}
+.kpi-value{display:block;font-size:2.15rem;line-height:1.15;font-weight:700;letter-spacing:-.02em;color:#111;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.kpi-note{display:block;font-size:.78rem;line-height:1.4;color:#5d5d5d}
+.kpi-bar{display:flex;height:6px;margin-top:8px;background:#f0f0f0}
+.kpi-bar i{display:block}
+.next-strip{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;width:100%;text-align:left;font:inherit;color:#111;cursor:pointer;background:#f6f6f6;border:0;border-left:4px solid #d71920;padding:9px 14px;margin:0 0 12px;font-size:.88rem}
+.next-strip b{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase}
+.next-strip span:last-child{margin-left:auto;font-weight:700;font-size:.78rem}
+.next-strip:hover{background:#fff5f5}
+.about-data{margin:0 0 14px}
+.about-data p{margin:8px 0 0;font-size:.82rem;line-height:1.6;color:#5d5d5d}
+
+.sec-nav{position:sticky;top:0;z-index:5;display:flex;gap:0;overflow-x:auto;background:#fff;border-bottom:2px solid #252525;margin:0 0 18px;scrollbar-width:none}
+.sec-nav::-webkit-scrollbar{display:none}
+.sec-nav button{flex:0 0 auto;font:inherit;font-weight:700;font-size:.88rem;min-height:44px;padding:0 16px;background:none;border:0;border-bottom:4px solid transparent;margin-bottom:-2px;color:#5d5d5d;cursor:pointer;white-space:nowrap}
+.sec-nav button:hover{color:#111;background:#fff5f5}
+.sec-nav button[aria-selected="true"]{color:#111;border-bottom-color:#d71920}
+
+details.why{margin:0 0 14px}
+details.why summary,.about-data summary,details.more summary{font-size:.82rem;font-weight:600;color:#5d5d5d;cursor:pointer}
+details.why p{margin:8px 0 0;font-size:.86rem;line-height:1.6;color:#5d5d5d}
+details.more{margin-top:16px;border-top:1px solid #dedede;padding-top:12px}
+.layout{gap:18px}
+.layout>.event-controls{padding:12px 18px}
+.panel{padding:20px 22px}
+.chart{margin:14px 0 8px}
+.chart-row{margin-bottom:12px}
+.takeaway{margin-top:12px}
+.hist-bars{height:150px}
+#fighter-finder .table-scroll{max-height:440px;overflow:auto;border-bottom:1px solid #dedede}
+#fighter-finder thead th{position:sticky;top:0;background:#fff;z-index:1}
+.layout>.upcoming{grid-column:1/-1;margin:0}
+.upcoming-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:12px 0}
+.upcoming-info{padding:14px 16px}
+.upcoming-info h3{font-size:20px;margin-bottom:6px}
+.upcoming-card .faceoff{display:none}
+@media(max-width:900px){.upcoming-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+ .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .kpi{padding:10px 12px}.kpi-value{font-size:1.6rem}
+ .upcoming-grid{grid-template-columns:1fr}
+ .next-strip span:last-child{margin-left:0}
+}
+.kpi{display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch}
+.cage-notice{border-left-color:#d71920}
+.cage-notice strong{color:#b0161c}
+.faceoff-pending .faceoff-name{font-family:"Space Grotesk",Inter,Arial,sans-serif;font-size:22px;color:#111}
+#upcoming-status a{color:inherit;text-decoration:underline}
+/* Finder (17 November): number filters greyed out while a fighter is picked; chart 02 clears the sticky subtab bar when scrolled to. */
+.finder-controls input:disabled{background:#eee;color:#8a8a8a;border-color:#d6d6d6;cursor:not-allowed}
+.finder-controls div:has(> input:disabled) label{color:#8a8a8a}
+#accuracy-panel{scroll-margin-top:64px}
+/* Finder Apply / Clear filters (17 November): the number filters wait for Apply; Clear puts back the defaults. */
+.finder-buttons{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.finder-apply,.finder-reset{min-height:44px;padding:0 20px;font-family:"Space Grotesk",Arial,sans-serif;font-weight:700;letter-spacing:.04em;cursor:pointer;border:1px solid #111}
+.finder-apply{background:#111;color:#fff}
+.finder-apply:hover{background:#d71920;border-color:#d71920}
+.finder-apply.pending{background:#d71920;border-color:#d71920;box-shadow:0 0 0 3px #f6c3c5}
+.finder-reset{background:#fff;color:#111}
+.finder-reset:hover{background:#fff5f5;border-color:#d71920}
+.finder-apply:focus-visible,.finder-reset:focus-visible{outline:2px solid #d71920;outline-offset:3px}
+.finder-apply:disabled,.finder-reset:disabled{background:#eee;color:#8a8a8a;border-color:#d6d6d6;box-shadow:none;cursor:not-allowed}
+.finder-pending{font-size:.84rem;font-weight:600;color:#b0161c}

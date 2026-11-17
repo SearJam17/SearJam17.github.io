@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+<title>Inside the Cage: sprite preview</title>
+<style>
+  :root { --red: #c8102e; --ink: #111; --line: #ddd; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.4 system-ui, sans-serif; color: var(--ink); background: #fff; }
+  header, main, footer { max-width: 1000px; margin: 0 auto; padding: 12px 16px; }
+  header h1 { margin: 0; font-size: 20px; } header h1 span { color: var(--red); }
+  header p { margin: 4px 0 0; color: #555; }
+  .tabs button { font: inherit; padding: 6px 14px; border: 1px solid var(--ink); background: #fff; cursor: pointer; }
+  .tabs button.on { background: var(--ink); color: #fff; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: 10px 0; }
+  .controls label { display: flex; gap: 6px; align-items: center; }
+  input[type=text] { width: 190px; font: inherit; padding: 3px 6px; }
+  select, button { font: inherit; }
+  .stage { overflow-x: auto; border: 1px solid var(--line); background: #f6f6f6; position: relative; }
+  .results { overflow-x: auto; background: #fff; border: 1px solid var(--line); border-top: 4px solid #111; padding: 14px 18px; margin-top: 8px; }
+  .results h2 { margin: 0 0 2px; font-size: 20px; } .results h2 b { color: var(--red); }
+  .results .how { margin: 0 0 10px; color: #333; }
+  .results h3 { margin: 12px 0 4px; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; }
+  .results table { border-collapse: collapse; font-size: 13px; }
+  .results th, .results td { padding: 3px 7px; border-bottom: 1px solid #e5e5e5; text-align: right; white-space: nowrap; }
+  .results th:first-child, .results td:first-child, .results td.name { text-align: left; }
+  .results thead th { border-bottom: 2px solid #111; }
+  .results tr.round td { border-top: 2px solid #ccc; } .results tr.total td { font-weight: bold; border-top: 2px solid #111; }
+  .results .red { border-left: 4px solid #c8102e; } .results .blue { border-left: 4px solid #1e4cba; }
+  .results .buttons { display: flex; gap: 10px; margin-top: 12px; }
+  .results .buttons button { padding: 6px 14px; border: 1px solid #111; background: #fff; cursor: pointer; }
+  .results .buttons button.primary { background: #c8102e; border-color: #c8102e; color: #fff; }
+  .results .note { font-size: 12px; color: #555; margin: 6px 0 0; max-width: 860px; }
+  canvas { display: block; }
+  #log { height: 220px; overflow-y: auto; font: 12px/1.45 ui-monospace, monospace; background: #111; color: #eee; padding: 8px; margin-top: 8px; white-space: pre-wrap; }
+  .note { color: #555; font-size: 13px; }
+  footer { color: #555; font-size: 12px; border-top: 1px solid var(--line); }
+  /* Embedded in the dashboard's Fight Game tab (?embed=1): the dashboard supplies the title, credits and the
+     fight controls, and this page takes the dashboard's fonts and red / white / black look. */
+  body.embed > header, body.embed > footer, body.embed .tabs, body.embed #watch > .controls { display: none; }
+  body.embed { font-family: Inter, Arial, sans-serif; color: #202020; }
+  body.embed main { padding: 0; max-width: none; }
+  body.embed .stage { border-color: #dedede; }
+  body.embed #w-canvas { width: 100%; height: auto; }          /* scales down to fit a phone */
+  body.embed #log { background: #101010; border-left: 4px solid #d71920; }
+  body.embed .results { border-top-color: #d71920; font-family: Inter, Arial, sans-serif; }
+  body.embed .results h2, body.embed .results h3 { font-family: 'Space Grotesk', Arial, sans-serif; }
+  body.embed .results h2 b { color: #d71920; }
+  body.embed .results .buttons button { font-family: 'Space Grotesk', Arial, sans-serif; font-weight: 700; letter-spacing: .04em; border-color: #282828; border-radius: 0; min-height: 40px; }
+  body.embed .results .buttons button.primary { background: #d71920; border-color: #d71920; }
+  @media (max-width: 600px) { body.embed #log { height: 140px; font-size: 11px; } body.embed .results { padding: 10px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Inside the <span>Cage</span>: sprite preview</h1>
+  <p>A rough preview before the Phaser arena (milestone 2). Original template art, no real-fighter likenesses; names are data labels only.</p>
+</header>
+<main>
+  <div class="tabs"><button data-tab="compare" class="on">Compare: raw vs recolour</button> <button data-tab="watch">Watch a CPU fight</button></div>
+
+  <section id="compare">
+    <div class="controls">
+      <label>Animation <select id="c-anim"></select></label>
+      <label>Red corner skin <select class="skin" id="c-skin0"></select></label>
+      <label>Blue corner skin <select class="skin" id="c-skin1"></select></label>
+    </div>
+    <div class="stage"><canvas id="c-canvas" width="960" height="560"></canvas></div>
+    <p class="note">Top: raw template. Bottom: recoloured in code (skin tone, corner fight shorts, referee in the middle). Both fighters share one floor line; the blue corner is mirrored to face the red corner. Scaled 3x with no smoothing.</p>
+    <h3>Close-up: shorts (5x)</h3>
+    <div class="stage"><canvas id="c-zoom" width="960" height="360"></canvas></div>
+  </section>
+
+  <section id="watch" hidden>
+    <div class="controls">
+      <label>Red <input type="text" id="w-a" list="names" value="Justin Gaethje"></label>
+      <label>Blue <input type="text" id="w-b" list="names" value="Khabib Nurmagomedov"></label>
+      <label>Seed <input type="text" id="w-seed" value="8" style="width:60px"></label>
+      <label>Speed <select id="w-speed"><option>1</option><option selected>2</option><option>4</option><option>8</option></select></label>
+      <label><input type="checkbox" id="w-recolor" checked> Recolour</label>
+      <button id="w-start">Start fight</button>
+    </div>
+    <div class="stage" id="w-stage"><canvas id="w-canvas" width="960" height="470"></canvas></div>
+    <div id="results" class="results" hidden></div>
+    <div id="log"></div>
+    <datalist id="names"></datalist>
+  </section>
+</main>
+<footer>Inside the Cage by Tamera Taylor-Moore. Fighter sprites: Pixel Moon Studio (template pack, recoloured). Fight stats from the dashboard data, checked against Greco1899/scrape_ufc_stats (GPL-3.0).</footer>
+
+<script src="fighter-stats.js"></script>
+<script src="../fighter-pace.js"></script>
+<script src="engine.js"></script>
+<script src="render/recolor.js"></script>
+<script src="render/sprites.js"></script>
+<script src="render/preview.js"></script>
+</body>
+</html>

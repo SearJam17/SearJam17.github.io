@@ -1,0 +1,37 @@
+/* Intro splash: arcade-style title card over the dashboard (built by intro-splash.js).
+   Timeline (about 3.65 s): flash + speed lines 0-0.6 s; title slams in 0.06-0.44 s; shake 0.38-0.66 s;
+   glow pulses while holding 0.66-2.66 s; title zooms forward and fades 2.7-3.2 s; dark backdrop fades 3.2-3.65 s.
+   The backdrop shows at once; the timeline only starts when intro-splash.js adds .is-playing (after the page's scripts load). */
+html.intro-splash-lock,html.intro-splash-lock body{overflow:hidden}
+.intro-splash{position:fixed;inset:0;z-index:1000;overflow:hidden;touch-action:none;overscroll-behavior:contain;background:rgba(6,6,10,.78)}
+.intro-splash.is-playing{animation:intro-splash-out .45s ease-in 3.2s forwards}
+.intro-flash{position:absolute;inset:0;pointer-events:none;background:#fff;opacity:0}
+.is-playing .intro-flash{animation:intro-flash .16s ease-out forwards}
+.intro-stage{position:absolute;inset:0;display:grid;place-items:center}
+.is-playing .intro-stage{animation:intro-shake .28s linear .38s}
+.intro-lines{position:absolute;inset:0;width:100%;height:100%;opacity:0;transform-origin:center}
+.is-playing .intro-lines{animation:intro-burst .6s ease-out forwards}
+.intro-lines .line-white{fill:#fff}
+.intro-lines .line-gold{fill:#ffd23f}
+.intro-title{position:relative;width:min(92vw,1000px);height:auto;overflow:visible;opacity:0;transform-origin:center}
+.is-playing .intro-title{animation:intro-slam .38s cubic-bezier(.2,.9,.3,1.25) .06s forwards,intro-glow .25s ease-in-out .66s 8 alternate,intro-zoom-out .5s ease-in 2.7s forwards}
+.intro-title text{font-family:Impact,"Arial Black","Helvetica Neue",Arial,sans-serif;font-size:150px;font-weight:900}
+.intro-title-text{fill:url(#intro-title-fill);stroke:#000;stroke-width:14px;stroke-linejoin:round;paint-order:stroke fill}
+.intro-title-shadow{fill:#000;stroke:#000;stroke-width:14px;stroke-linejoin:round}
+
+@keyframes intro-flash{0%{opacity:0}30%{opacity:.5}100%{opacity:0}}
+@keyframes intro-burst{0%{opacity:0;transform:scale(.3)}25%{opacity:.85}100%{opacity:0;transform:scale(1.5)}}
+@keyframes intro-slam{0%{opacity:0;transform:scale(3.2)}60%{opacity:1;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}
+@keyframes intro-shake{0%,100%{transform:translate(0,0)}20%{transform:translate(-10px,6px)}40%{transform:translate(9px,-7px)}60%{transform:translate(-6px,4px)}80%{transform:translate(4px,-2px)}}
+@keyframes intro-glow{from{filter:drop-shadow(0 0 0 rgba(255,190,40,0))}to{filter:drop-shadow(0 0 18px rgba(255,190,40,.7))}}
+@keyframes intro-zoom-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(2.4)}}
+@keyframes intro-splash-out{to{opacity:0}}
+@keyframes intro-fade-in-out{0%{opacity:0}20%,80%{opacity:1}100%{opacity:0}}
+
+/* Reduced motion: no flash, no shake, no speed lines, no zoom; the title simply fades in and out. */
+@media(prefers-reduced-motion:reduce){
+  .intro-flash,.intro-lines{display:none}
+  .is-playing .intro-stage{animation:none}
+  .is-playing .intro-title{animation:intro-fade-in-out 2s ease-in-out forwards}
+  .intro-splash.is-playing{animation:intro-splash-out .4s ease-in 2s forwards}
+}
